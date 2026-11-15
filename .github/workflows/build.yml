@@ -1,19 +1,21 @@
-name: Build PS3 Video Player
+
+name: Prepare PS3 SDK
 
 on:
   workflow_dispatch:
 
 jobs:
-  build:
+  prepare:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout repository
+      - name: Download PS3DEV
         uses: actions/checkout@v4
+        with:
+          repository: ps3dev/ps3dev
+          path: ps3dev
 
-      - name: Prepare environment
+      - name: Check SDK repository
         run: |
-          sudo apt-get update
-          sudo apt-get install -y git build-essential
-
-      - name: Show build status
-        run: echo "Environment ready"
+          ls -la ps3dev
+          echo "PS3DEV source downloaded successfully"
