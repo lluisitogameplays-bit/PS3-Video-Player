@@ -25,7 +25,6 @@ jobs:
           cd ps3dev
           export PS3DEV=$GITHUB_WORKSPACE/ps3dev-install
           export PSL1GHT=$PS3DEV
-          sudo mkdir -p "$PS3DEV"
-          sudo chown -R "$USER" "$PS3DEV"
+          export PATH="$PATH:$PS3DEV/bin:$PS3DEV/ppu/bin:$PS3DEV/spu/bin"
+          mkdir -p "$PS3DEV"
           ./build-all.sh
-
