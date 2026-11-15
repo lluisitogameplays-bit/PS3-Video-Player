@@ -28,3 +28,8 @@ jobs:
           export PATH="$PATH:$PS3DEV/bin:$PS3DEV/ppu/bin:$PS3DEV/spu/bin"
           mkdir -p "$PS3DEV"
           ./build-all.sh
+
+      - name: Verify PPU compiler
+        run: |
+          "$PS3DEV/ppu/bin/ppu-gcc" --version
+
