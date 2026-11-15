@@ -1,11 +1,11 @@
 
-name: Prepare PS3 SDK
+name: Build PS3 SDK
 
 on:
   workflow_dispatch:
 
 jobs:
-  prepare:
+  build:
     runs-on: ubuntu-latest
 
     steps:
@@ -15,7 +15,17 @@ jobs:
           repository: ps3dev/ps3dev
           path: ps3dev
 
-      - name: Check SDK repository
+      - name: Install dependencies
         run: |
-          ls -la ps3dev
-          echo "PS3DEV source downloaded successfully"
+          sudo apt-get update
+          sudo apt-get install -y autoconf automake bison flex gcc libelf-dev make texinfo patch wget zlib1g-dev libtool libtool-bin bzip2 pkg-config g++ libssl-dev clang python3
+
+      - name: Build PS3DEV
+        run: |
+          cd ps3dev
+          export PS3DEV=$GITHUB_WORKSPACE/ps3dev-install
+          export PSL1GHT=$PS3DEV
+          sudo mkdir -p "$PS3DEV"
+          sudo chown -R "$USER" "$PS3DEV"
+          ./build-all.sh
+
